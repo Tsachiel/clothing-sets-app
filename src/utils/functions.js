@@ -30,3 +30,5 @@ export const getInitialSavedSets = () => {
     const data = localStorage.getItem("savedSets");
     return data ? JSON.parse(data) : [];
 };
+
+export const getUniqueValues = (items, key) => [...new Set(items.map((item) => item[key]))];
