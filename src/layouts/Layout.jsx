@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import {Box,CssBaseline,Drawer, Toolbar} from "@mui/material";
 import { DRAWER_WIDTH } from "../utils/consts";
 import { getTitle } from "../utils/functions";
 import TopBar from "../components/TopBar";
 import SideBar from "../components/SideBar";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchClothes } from "../redux/slices/clothesSlice";
 
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.clothes.data);
 
+  useEffect(() => {
+    if (data.shoes.length === 0 && data.pants.length === 0 && data.shirts.length === 0) {
+      dispatch(fetchClothes());
+    }
+  }, [dispatch, data]);
+  
   const handleDrawerToggle = () => {
     setMobileOpen(prev => !prev);
   };
