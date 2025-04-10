@@ -25,3 +25,8 @@ export const getTitle = (path) => {
   };
   
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
+export const getInitialSavedSets = () => {
+    const data = localStorage.getItem("savedSets");
+    return data ? JSON.parse(data) : [];
+};
