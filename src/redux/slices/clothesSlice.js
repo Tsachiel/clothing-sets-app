@@ -7,6 +7,11 @@ const initialState = {
     pants: [],
     shirts: [],
   },
+  currentSet: {
+    shirt: null,
+    pants: null,
+    shoes: null,
+  },
   loading: false,
   error: null,
 };
@@ -31,6 +36,12 @@ const clothesSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    selectItem(state, action) {
+      const { type, item } = action.payload;
+      if (["shirt", "pants", "shoes"].includes(type)) {
+        state.currentSet[type] = item;
+      }
+    }
   },
 });
 
@@ -38,6 +49,7 @@ export const {
   fetchClothesStart,
   fetchClothesSuccess,
   fetchClothesError,
+  selectItem,
 } = clothesSlice.actions;
 
 export default clothesSlice.reducer;
