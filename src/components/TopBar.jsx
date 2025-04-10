@@ -16,15 +16,14 @@ export default function TopBar({title ,showBack, onDrawerToggle}){
 
         <AppBar component="nav">
         <Toolbar>
-          <IconButton
+        <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleClick}
             ref={menuButtonRef}
-            sx={{ display: { sm: "none" } }}
-            >
-            <MenuIcon sx={{ outline: "none", "&:focus": { outline: "none" } }} />
+        >
+            <MenuIcon />
           </IconButton>
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
