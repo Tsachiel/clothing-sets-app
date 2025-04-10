@@ -16,8 +16,6 @@ export default function Layout() {
   const title = getTitle(location.pathname);
   const showBack = location.pathname !== "/";
 
-  const drawer = <SideBar onDrawertoggle={handleDrawerToggle}/>;
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -27,30 +25,19 @@ export default function Layout() {
       onDrawerToggle={handleDrawerToggle}
       />
       <Box component="nav">
-        <Drawer
+      <Drawer
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{ keepMounted: true }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block"},
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: DRAWER_WIDTH,
             },
           }}
-        >{drawer}</Drawer>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: "none", sm: "block" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: DRAWER_WIDTH,
-            },
-          }}
-          open
-        >{drawer}</Drawer>
+      ><SideBar onDrawertoggle={handleDrawerToggle}/></Drawer>
       </Box>
 
       <Box
@@ -58,7 +45,7 @@ export default function Layout() {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
+          width: "100%",
         }}
       >
         <Toolbar /> 
