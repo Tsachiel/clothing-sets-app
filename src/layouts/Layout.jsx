@@ -6,7 +6,7 @@ import { getTitle } from "../utils/functions";
 import TopBar from "../components/TopBar";
 import SideBar from "../components/SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchClothes } from "../redux/slices/clothesSlice";
+import { fetchClothes, initSavedSets } from "../redux/slices/clothesSlice";
 
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -15,11 +15,13 @@ export default function Layout() {
   const data = useSelector((state) => state.clothes.data);
 
   useEffect(() => {
-    if (data.shoes.length === 0 && data.pants.length === 0 && data.shirts.length === 0) {
+    dispatch(initSavedSets());
+
+    if ( data.shoes.length === 0 && data.pants.length === 0 && data.shirts.length === 0) {
       dispatch(fetchClothes());
     }
   }, [dispatch, data]);
-  
+
   const handleDrawerToggle = () => {
     setMobileOpen(prev => !prev);
   };
@@ -29,13 +31,13 @@ export default function Layout() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <TopBar 
-      title ={title} 
-      showBack ={showBack} 
-      onDrawerToggle={handleDrawerToggle}
+      <TopBar
+        title ={title}
+        showBack ={showBack}
+        onDrawerToggle={handleDrawerToggle}
       />
       <Box component="nav">
-      <Drawer
+        <Drawer
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
@@ -47,7 +49,7 @@ export default function Layout() {
               width: DRAWER_WIDTH,
             },
           }}
-      ><SideBar onDrawertoggle={handleDrawerToggle}/></Drawer>
+        ><SideBar onDrawertoggle={handleDrawerToggle}/></Drawer>
       </Box>
 
       <Box
@@ -58,7 +60,7 @@ export default function Layout() {
           width: "100%",
         }}
       >
-        <Toolbar /> 
+        <Toolbar />
         <Outlet />
       </Box>
     </Box>
